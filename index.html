@@ -35,8 +35,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:13px;color:rgba(201,168,76,.5);letter-spacing:1px}
 .err-box{background:rgba(220,50,50,.08);border:0.5px solid rgba(220,50,50,.25);border-radius:10px;padding:12px 14px;color:#FF8A8A;font-size:13px;margin-bottom:16px;display:none;line-height:1.5}
-
-/* POST CARD */
 .post-card{background:var(--cream);border-radius:14px;overflow:hidden;margin-bottom:14px;animation:up .35s ease both}
 .post-card:nth-child(2){animation-delay:.08s}
 .post-card:nth-child(3){animation-delay:.16s}
@@ -51,27 +49,9 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .post-body{padding:16px;font-size:15px;line-height:1.6;color:var(--txt);white-space:pre-wrap;border-bottom:1px solid var(--cream2)}
 .post-foot{padding:10px 16px;background:var(--cream2);display:flex;align-items:center;justify-content:space-between}
 .char-lbl{font-size:11px;color:var(--txt2)}
-.btn-copy{padding:9px 0;background:var(--green);color:var(--gold);border:none;border-radius:8px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;width:100px;text-align:center}
+.btn-copy{padding:10px 0;background:var(--green);color:var(--gold);border:none;border-radius:8px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;width:110px;text-align:center;transition:background .15s}
+.btn-copy:active{background:var(--green2)}
 .btn-copy.ok{background:#1a4a2a;color:#7ED4A0}
-
-/* VIDEO SECTION */
-.video-section{padding:14px 16px;border-top:1px solid var(--cream2);background:#f5f0e8}
-.video-label{font-size:10px;color:#8B6914;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;font-weight:500}
-.video-loading{font-size:12px;color:#999;padding:8px 0}
-.video-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.video-item{position:relative;border-radius:8px;overflow:hidden;background:#000;aspect-ratio:9/16;cursor:pointer;border:2px solid transparent;transition:border-color .2s}
-.video-item.selected{border-color:var(--gold-dark)}
-.video-item video{width:100%;height:100%;object-fit:cover;display:block}
-.video-overlay{position:absolute;inset:0;background:rgba(0,0,0,.25);display:flex;align-items:center;justify-content:center;opacity:0;transition:opacity .2s}
-.video-item:hover .video-overlay{opacity:1}
-.play-icon{width:36px;height:36px;background:rgba(255,255,255,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
-.video-photographer{position:absolute;bottom:4px;left:6px;font-size:9px;color:rgba(255,255,255,.7);background:rgba(0,0,0,.4);padding:2px 5px;border-radius:4px}
-.video-actions{margin-top:10px;display:flex;gap:8px}
-.btn-dl{flex:1;padding:10px;background:var(--green);color:var(--gold);border:none;border-radius:8px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;text-align:center;text-decoration:none;display:block;-webkit-tap-highlight-color:transparent}
-.btn-dl:active{background:var(--green2)}
-.btn-refresh{padding:10px 14px;background:rgba(139,105,20,.12);border:0.5px solid rgba(139,105,20,.3);border-radius:8px;color:#8B6914;font-size:13px;font-family:inherit;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.no-video{font-size:12px;color:#999;padding:8px 0;font-style:italic}
-
 .copy-ta{position:fixed;top:50%;left:50%;width:2px;height:2px;opacity:0;pointer-events:none;font-size:16px}
 .footer{text-align:center;padding:32px 0 16px;font-size:11px;color:rgba(250,247,240,.15);letter-spacing:1px}
 </style>
@@ -83,40 +63,26 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="h-sub">Threads Content Agent</div>
 </div>
 <div class="wrap">
-
   <div class="card">
     <div class="card-label">Claude API Key</div>
     <div class="api-row">
       <input type="password" class="api-input" id="api-key" placeholder="sk-ant-api03-...">
-      <button class="btn-save" onclick="saveKey('claude')">Simpan</button>
+      <button class="btn-save" onclick="saveKey()">Simpan</button>
     </div>
     <div class="key-ok" id="key-ok">&#10003; Tersimpan</div>
   </div>
-
-  <div class="card">
-    <div class="card-label">Pexels API Key</div>
-    <div class="api-row">
-      <input type="password" class="api-input" id="pexels-key" placeholder="Pexels API key...">
-      <button class="btn-save" onclick="saveKey('pexels')">Simpan</button>
-    </div>
-    <div class="key-ok" id="pexels-ok">&#10003; Tersimpan</div>
-  </div>
-
   <div class="card">
     <div class="card-label">Topik hari ini (opsional)</div>
     <textarea class="topik-input" id="topik" placeholder="Kosongkan = AI pilih sendiri&#10;Contoh: rindu Raudhah, kenangan tawaf pertama, dll..."></textarea>
   </div>
-
   <button class="btn-gen" id="gen-btn" onclick="generate()">
-    ✦ Generate 3 Post + Video Hari Ini
+    ✦ Generate 3 Post Hari Ini
   </button>
-
   <div class="err-box" id="err-box"></div>
   <div class="loading" id="loading">
     <div class="spin"></div>
-    <div class="loading-txt" id="loading-txt">Sedang menulis konten...</div>
+    <div class="loading-txt">Sedang menulis...</div>
   </div>
-
   <div id="output"></div>
   <div class="footer">Ghazal · Freca Group Indonesia</div>
 </div>
@@ -146,30 +112,6 @@ var TOPIC_POOL = [
   "teman seperjalanan yang baru kenal tapi ngerasa sudah saudara"
 ];
 
-// Video keywords mapped to topics
-var VIDEO_KEYWORDS = [
-  "mecca kaaba",
-  "tawaf kaaba crowd",
-  "zamzam mecca",
-  "kaaba night",
-  "masjidil haram prayer",
-  "madinah mosque",
-  "mecca pilgrims",
-  "mecca aerial",
-  "mecca dawn",
-  "islamic prayer",
-  "masjid nabawi",
-  "arafah pilgrims",
-  "islamic incense",
-  "mecca spiritual",
-  "mecca ihram",
-  "muslim prayer",
-  "mecca morning",
-  "kaaba circumambulation",
-  "mecca journey",
-  "muslim pilgrimage"
-];
-
 function getRandTopics(n) {
   var pool = TOPIC_POOL.slice();
   var res = [];
@@ -181,79 +123,34 @@ function getRandTopics(n) {
 }
 
 window.onload = function() {
-  var ck = localStorage.getItem('ghazal_key');
-  if (ck) { document.getElementById('api-key').value = ck; document.getElementById('key-ok').style.display = 'block'; }
-  var pk = localStorage.getItem('pexels_key');
-  if (pk) { document.getElementById('pexels-key').value = pk; document.getElementById('pexels-ok').style.display = 'block'; }
+  var k = localStorage.getItem('ghazal_key');
+  if (k) {
+    document.getElementById('api-key').value = k;
+    document.getElementById('key-ok').style.display = 'block';
+  }
 };
 
-function saveKey(type) {
-  if (type === 'claude') {
-    var k = document.getElementById('api-key').value.trim();
-    if (!k) return;
-    localStorage.setItem('ghazal_key', k);
-    var el = document.getElementById('key-ok');
-    el.style.display = 'block';
-    setTimeout(function(){ el.style.display = 'none'; }, 2500);
-  } else {
-    var k = document.getElementById('pexels-key').value.trim();
-    if (!k) return;
-    localStorage.setItem('pexels_key', k);
-    var el = document.getElementById('pexels-ok');
-    el.style.display = 'block';
-    setTimeout(function(){ el.style.display = 'none'; }, 2500);
-  }
+function saveKey() {
+  var k = document.getElementById('api-key').value.trim();
+  if (!k) return;
+  localStorage.setItem('ghazal_key', k);
+  var el = document.getElementById('key-ok');
+  el.style.display = 'block';
+  setTimeout(function(){ el.style.display = 'none'; }, 2500);
 }
 
-function getKey(type) {
-  if (type === 'claude') return document.getElementById('api-key').value.trim() || localStorage.getItem('ghazal_key') || '';
-  return document.getElementById('pexels-key').value.trim() || localStorage.getItem('pexels_key') || '';
+function getKey() {
+  return document.getElementById('api-key').value.trim() || localStorage.getItem('ghazal_key') || '';
 }
 
 function normalizeText(s) {
   return s.replace(/\n{2,}/g, '\n').trim();
 }
 
-function setLoadingTxt(t) {
-  document.getElementById('loading-txt').textContent = t;
-}
-
-async function fetchPexelsVideos(keyword, pexelsKey) {
-  try {
-    var queries = [keyword, 'mecca kaaba', 'masjidil haram'];
-    for (var qi = 0; qi < queries.length; qi++) {
-      var q = encodeURIComponent(queries[qi]);
-      var r = await fetch('https://api.pexels.com/videos/search?query=' + q + '&per_page=6&orientation=portrait', {
-        headers: { 'Authorization': pexelsKey }
-      });
-      if (!r.ok) continue;
-      var d = await r.json();
-      if (d.videos && d.videos.length > 0) {
-        // filter videos with duration <= 30s
-        var filtered = d.videos.filter(function(v){ return v.duration <= 30; });
-        if (filtered.length > 0) return filtered.slice(0, 4);
-        return d.videos.slice(0, 4);
-      }
-    }
-  } catch(e) {}
-  return [];
-}
-
-function getBestVideoFile(video) {
-  var files = video.video_files || [];
-  // prefer HD portrait
-  var hd = files.filter(function(f){ return f.quality === 'hd' && f.width < f.height; });
-  if (hd.length) return hd[0];
-  var sd = files.filter(function(f){ return f.width < f.height; });
-  if (sd.length) return sd[0];
-  return files[0] || null;
-}
-
 async function generate() {
-  var claudeKey = getKey('claude');
-  if (!claudeKey) { showErr('Masukkan Claude API Key dulu.'); return; }
+  var key = getKey();
+  if (!key) { showErr('Masukkan Claude API Key dulu.'); return; }
 
-  var pexelsKey = getKey('pexels');
   var topik = document.getElementById('topik').value.trim();
   var btn = document.getElementById('gen-btn');
   var loading = document.getElementById('loading');
@@ -269,15 +166,6 @@ async function generate() {
   var tSiang = topik || rand[1];
   var tMalam = topik || rand[2];
 
-  // random video keywords for variety
-  var vKeywords = [
-    VIDEO_KEYWORDS[Math.floor(Math.random() * VIDEO_KEYWORDS.length)],
-    VIDEO_KEYWORDS[Math.floor(Math.random() * VIDEO_KEYWORDS.length)],
-    VIDEO_KEYWORDS[Math.floor(Math.random() * VIDEO_KEYWORDS.length)]
-  ];
-
-  setLoadingTxt('Sedang menulis konten...');
-
   var prompt =
 'Kamu nulis konten Threads untuk wewangian Ghazal.\n\n' +
 'GHAZAL: bukan parfum untuk umroh/haji. Ghazal adalah obat rindu orang yang sudah pulang dari tanah suci. Satu semprotan wewangian Ghazal dan kamu ngerasa balik ke sana lagi.\n\n' +
@@ -290,22 +178,22 @@ async function generate() {
 '- Jangan mulai dengan salam atau sapaan\n' +
 '- Jangan sebut "Tuhan" — pakai "Allah"\n' +
 '- Ghazal disebut sebagai "wewangian Ghazal" bukan cuma "Ghazal"\n' +
-'- Mix antara natural (ngobrol) dan sedikit puitis\n\n' +
+'- Mix antara natural (ngobrol) dan sedikit puitis — jangan semuanya puitis\n\n' +
 'CONTOH BENAR:\n' +
 '"Pulang dari Makkah, yang pertama aku lakuin:\nbuka koper dan cium baju ihram.\nAromanya masih ada.\nWewangian Ghazal yang paling deket sama itu.\n#Ghazal"\n\n' +
+'"Ada satu hal yang nggak bisa difoto dari umroh.\nBukan tempatnya.\nBukan momennya.\nTapi aromanya.\nWewangian Ghazal yang paling ngingetin aku ke sana.\n#Ghazal #RinduMakkah"\n\n' +
 'TOPIK PAGI: ' + tPagi + '\n' +
 'TOPIK SIANG: ' + tSiang + '\n' +
 'TOPIK MALAM: ' + tMalam + '\n\n' +
 'Balas HANYA JSON ini:\n' +
 '{"posts":[{"slot":"pagi","content":"..."},{"slot":"siang","content":"..."},{"slot":"malam","content":"..."}]}';
 
-  var posts = null;
   try {
     var res = await fetch('https://ghazal-proxy.ubed-fahmi.workers.dev', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'x-api-key': claudeKey,
+        'x-api-key': key,
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
@@ -314,34 +202,26 @@ async function generate() {
         messages: [{ role: 'user', content: prompt }]
       })
     });
-    if (!res.ok) { var e = await res.json(); throw new Error(e.error && e.error.message ? e.error.message : 'Error ' + res.status); }
+
+    if (!res.ok) {
+      var errData = await res.json();
+      throw new Error(errData.error && errData.error.message ? errData.error.message : 'Error ' + res.status);
+    }
+
     var data = await res.json();
     var raw = data.content.map(function(i){ return i.text || ''; }).join('');
     var jsonMatch = raw.match(/\{[\s\S]*\}/);
     if (!jsonMatch) throw new Error('Format tidak valid, coba lagi.');
     var parsed = JSON.parse(jsonMatch[0]);
     if (!parsed.posts || !parsed.posts.length) throw new Error('Konten kosong, coba lagi.');
-    posts = parsed.posts;
+    renderPosts(parsed.posts);
+
   } catch(e) {
     showErr('Gagal: ' + e.message);
-    btn.disabled = false;
-    loading.style.display = 'none';
-    return;
   }
 
-  // Fetch videos if pexels key available
-  var videosBySlot = {pagi: [], siang: [], malam: []};
-  if (pexelsKey) {
-    setLoadingTxt('Mencari footage video...');
-    var slots = ['pagi','siang','malam'];
-    for (var si = 0; si < slots.length; si++) {
-      videosBySlot[slots[si]] = await fetchPexelsVideos(vKeywords[si], pexelsKey);
-    }
-  }
-
-  loading.style.display = 'none';
   btn.disabled = false;
-  renderPosts(posts, videosBySlot, pexelsKey, vKeywords);
+  loading.style.display = 'none';
 }
 
 var slotCfg = {
@@ -350,54 +230,17 @@ var slotCfg = {
   malam: {emoji:'🌙', label:'Malam', time:'20:00', cls:'ph-malam'}
 };
 
-function renderPosts(posts, videosBySlot, pexelsKey, vKeywords) {
+function renderPosts(posts) {
   var output = document.getElementById('output');
   output.innerHTML = '';
-
   for (var i = 0; i < posts.length; i++) {
     var p = posts[i];
     var cfg = slotCfg[p.slot] || slotCfg.pagi;
     var bodyId = 'pb' + i;
     var btnId = 'bc' + i;
     var txt = normalizeText(p.content);
-    var videos = videosBySlot[p.slot] || [];
-
     var card = document.createElement('div');
     card.className = 'post-card';
-
-    // Build video HTML
-    var videoHtml = '';
-    if (pexelsKey) {
-      videoHtml += '<div class="video-section">';
-      videoHtml += '<div class="video-label">footage video · pilih yang cocok</div>';
-      if (videos.length === 0) {
-        videoHtml += '<div class="no-video">Footage tidak ditemukan untuk topik ini.</div>';
-      } else {
-        videoHtml += '<div class="video-grid" id="vgrid-' + i + '">';
-        for (var vi = 0; vi < videos.length; vi++) {
-          var v = videos[vi];
-          var vfile = getBestVideoFile(v);
-          if (!vfile) continue;
-          var vurl = vfile.link;
-          var vpage = v.url;
-          var photo = v.user ? v.user.name : 'Pexels';
-          var dur = v.duration ? v.duration + 's' : '';
-          videoHtml +=
-            '<div class="video-item" id="vi-' + i + '-' + vi + '" onclick="selectVideo(' + i + ',' + vi + ',\'' + encodeURIComponent(vurl) + '\',\'' + encodeURIComponent(vpage) + '\')">' +
-              '<video src="' + vurl + '" muted playsinline loop preload="metadata"></video>' +
-              '<div class="video-overlay"><div class="play-icon">▶</div></div>' +
-              '<div class="video-photographer">' + photo + ' · ' + dur + '</div>' +
-            '</div>';
-        }
-        videoHtml += '</div>';
-        videoHtml += '<div class="video-actions" id="vactions-' + i + '" style="display:none">' +
-          '<a class="btn-dl" id="vdl-' + i + '" href="#" target="_blank" download>⬇ Download Video</a>' +
-          '<button class="btn-refresh" onclick="refreshVideos(' + i + ',\'' + encodeURIComponent(vKeywords[i] || 'mecca kaaba') + '\')">↻ Ganti</button>' +
-        '</div>';
-      }
-      videoHtml += '</div>';
-    }
-
     card.innerHTML =
       '<div class="post-head ' + cfg.cls + '">' +
         '<span class="slot-emoji">' + cfg.emoji + '</span>' +
@@ -407,79 +250,8 @@ function renderPosts(posts, videosBySlot, pexelsKey, vKeywords) {
       '<div class="post-foot">' +
         '<span class="char-lbl">' + txt.length + ' karakter</span>' +
         '<button class="btn-copy" id="' + btnId + '" onclick="copyPost(\'' + bodyId + '\',\'' + btnId + '\')">Salin</button>' +
-      '</div>' +
-      videoHtml;
-
+      '</div>';
     output.appendChild(card);
-
-    // autoplay video on hover
-    (function(idx, vids) {
-      setTimeout(function() {
-        var grid = document.getElementById('vgrid-' + idx);
-        if (!grid) return;
-        var vEls = grid.querySelectorAll('video');
-        vEls.forEach(function(vel) {
-          vel.addEventListener('mouseenter', function(){ vel.play(); });
-          vel.addEventListener('mouseleave', function(){ vel.pause(); vel.currentTime = 0; });
-          // mobile: tap to play/pause
-          vel.addEventListener('click', function(e){ e.stopPropagation(); if(vel.paused) vel.play(); else vel.pause(); });
-        });
-      }, 100);
-    })(i, videos);
-  }
-}
-
-function selectVideo(postIdx, vidIdx, encodedUrl, encodedPage) {
-  var grid = document.getElementById('vgrid-' + postIdx);
-  if (!grid) return;
-  // deselect all
-  grid.querySelectorAll('.video-item').forEach(function(el){ el.classList.remove('selected'); });
-  // select this
-  var sel = document.getElementById('vi-' + postIdx + '-' + vidIdx);
-  if (sel) sel.classList.add('selected');
-  // show download
-  var actions = document.getElementById('vactions-' + postIdx);
-  var dlBtn = document.getElementById('vdl-' + postIdx);
-  if (actions) actions.style.display = 'flex';
-  if (dlBtn) {
-    var url = decodeURIComponent(encodedUrl);
-    dlBtn.href = url;
-    dlBtn.setAttribute('download', 'ghazal-footage-' + postIdx + '.mp4');
-  }
-}
-
-async function refreshVideos(postIdx, encodedKw) {
-  var pexelsKey = getKey('pexels');
-  if (!pexelsKey) return;
-  var kw = decodeURIComponent(encodedKw);
-  // pick new random keyword
-  var newKw = VIDEO_KEYWORDS[Math.floor(Math.random() * VIDEO_KEYWORDS.length)];
-  var grid = document.getElementById('vgrid-' + postIdx);
-  if (grid) grid.innerHTML = '<div class="video-loading">Mencari footage baru...</div>';
-  var videos = await fetchPexelsVideos(newKw, pexelsKey);
-  if (!grid) return;
-  if (videos.length === 0) { grid.innerHTML = '<div class="no-video">Tidak ditemukan, coba lagi.</div>'; return; }
-  grid.innerHTML = '';
-  for (var vi = 0; vi < videos.length; vi++) {
-    var v = videos[vi];
-    var vfile = getBestVideoFile(v);
-    if (!vfile) continue;
-    var vurl = vfile.link;
-    var photo = v.user ? v.user.name : 'Pexels';
-    var dur = v.duration ? v.duration + 's' : '';
-    var el = document.createElement('div');
-    el.className = 'video-item';
-    el.id = 'vi-' + postIdx + '-' + vi;
-    el.innerHTML =
-      '<video src="' + vurl + '" muted playsinline loop preload="metadata"></video>' +
-      '<div class="video-overlay"><div class="play-icon">▶</div></div>' +
-      '<div class="video-photographer">' + photo + ' · ' + dur + '</div>';
-    var vurl2 = vurl, vi2 = vi;
-    el.onclick = (function(pu, pi, penc){ return function(){ selectVideo(postIdx, pi, encodeURIComponent(pu), penc); }; })(vurl, vi, encodeURIComponent(v.url));
-    var vel = el.querySelector('video');
-    vel.addEventListener('mouseenter', function(){ this.play(); });
-    vel.addEventListener('mouseleave', function(){ this.pause(); this.currentTime = 0; });
-    grid.appendChild(el);
   }
 }
 
@@ -488,7 +260,9 @@ function copyPost(bodyId, btnId) {
   var btn = document.getElementById(btnId);
   var text = el.innerText || el.textContent;
   if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-    navigator.clipboard.writeText(text).then(function() { flashOk(btn); }).catch(function() { fallbackCopy(text, btn); });
+    navigator.clipboard.writeText(text).then(function() {
+      flashOk(btn);
+    }).catch(function() { fallbackCopy(text, btn); });
     return;
   }
   fallbackCopy(text, btn);
