@@ -90,32 +90,32 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
 <script>
 var TOPIC_POOL = [
-  "momen pertama kali melihat Kabah langsung — bukan di foto, bukan di video",
-  "perasaan waktu tawaf dan ngerasa kecil banget di tengah jutaan manusia",
+  "momen pertama kali melihat Kabah langsung",
+  "perasaan waktu tawaf di tengah jutaan manusia",
   "air zamzam yang dingin di tengah panasnya Makkah",
-  "momen duduk berjam-jam mandangin Kabah tanpa ngapa-ngapain",
-  "nangis di Multazam tanpa tahu kenapa, tapi ngerasa lega banget",
-  "shalat subuh berjamaah di Masjid Nabawi — sunyi tapi ngerasa penuh",
-  "aroma khas Masjidil Haram yang susah dijelasin tapi langsung bikin rindu",
-  "perasaan berat waktu pesawat take off ninggalin Makkah",
-  "kenangan sahur di hotel dekat Masjidil Haram, dengerin azan subuh",
-  "momen ihram dilepas untuk terakhir kali — campur aduk rasanya",
-  "pulang dari tanah suci tapi ngerasa dunia biasa terasa asing",
-  "foto-foto umroh tiba-tiba muncul di galeri HP dan bikin sesak",
-  "kangen desak-desakan di Raudhah — capek tapi mau lagi",
-  "wukuf di Arafah — ngerasa semua orang di sana sama-sama butuh Allah",
-  "aroma bukhur yang tiba-tiba bikin keinget suasana masjid di sana",
-  "teman seperjalanan yang baru kenal tapi ngerasa sudah saudara lama",
-  "rindu pada versi diri sendiri yang lebih tenang waktu di tanah suci",
-  "kenangan jalan kaki subuh-subuh ke masjid sambil liat langit Makkah",
-  "waktu pertama kali ngucap talbiyah — merinding sampai ke tulang",
-  "momen di mana ngerasa doa-doa akhirnya didengar"
+  "duduk berjam-jam mandangin Kabah tanpa ngapa-ngapain",
+  "nangis di Multazam tanpa tahu kenapa",
+  "shalat subuh berjamaah di Masjid Nabawi",
+  "aroma khas Masjidil Haram yang susah dijelasin",
+  "perasaan berat waktu pesawat ninggalin Makkah",
+  "sahur di hotel sambil dengerin azan subuh Makkah",
+  "foto umroh tiba-tiba muncul di galeri HP",
+  "kangen desak-desakan di Raudhah",
+  "wukuf di Arafah — ngerasa semua sama-sama butuh Allah",
+  "aroma bukhur yang tiba-tiba keinget suasana masjid di sana",
+  "rindu versi diri sendiri yang lebih tenang waktu di tanah suci",
+  "waktu ngucap talbiyah pertama kali — merinding",
+  "momen di mana ngerasa doa-doa akhirnya didengar Allah",
+  "jalan kaki subuh-subuh ke masjid sambil liat langit Makkah",
+  "ihram dilepas untuk terakhir kali",
+  "pulang dari tanah suci, dunia biasa terasa asing",
+  "teman seperjalanan yang baru kenal tapi ngerasa sudah saudara"
 ];
 
 function getRandTopics(n) {
   var pool = TOPIC_POOL.slice();
   var res = [];
-  for (var i = 0; i < n; i++) {
+  for (var i = 0; i < n && pool.length; i++) {
     var idx = Math.floor(Math.random() * pool.length);
     res.push(pool.splice(idx, 1)[0]);
   }
@@ -167,87 +167,25 @@ async function generate() {
   var tMalam = topik || rand[2];
 
   var prompt =
-'Kamu adalah content creator untuk brand wewangian Ghazal di Threads.\n\n' +
-
-'BRAND GHAZAL:\n' +
-'Wewangian Ghazal bukan untuk dibawa saat umroh atau haji.\n' +
-'Ghazal adalah obat rindu — untuk yang sudah pulang dari tanah suci tapi hatinya masih di sana.\n' +
-'Satu semprotan wewangian Ghazal, dan tiba-tiba kamu ada di sana lagi.\n' +
-'Ghazal = portal waktu dalam bentuk wangi.\n\n' +
-
-'TARGET:\n' +
-'Orang yang SUDAH pernah umroh atau haji.\n' +
-'Yang pulang tapi masih sering keinget momen-momen di sana.\n' +
-'Usia 28-55 tahun. Religius tapi santai. Emosional soal kenangan ibadah.\n\n' +
-
-'PRINSIP COPYWRITING YANG WAJIB DITERAPKAN:\n' +
-'1. Pakai bahasa yang dipakai audiens — bukan bahasa brand\n' +
-'2. Cerita spesifik lebih kuat dari kalimat umum\n' +
-'3. Benefit (apa yang dirasakan) lebih kuat dari fitur (produknya)\n' +
-'4. Satu ide per baris, bangun secara bertahap\n' +
-'5. Hook di baris pertama — harus bikin orang berhenti scroll\n\n' +
-
-'PRINSIP PSIKOLOGI MARKETING YANG DITERAPKAN:\n' +
-'- Nostalgia trigger: bangkitkan memori spesifik yang vivid, bukan umum\n' +
-'- Availability heuristic: buat momen terasa mudah dibayangkan\n' +
-'- Mere exposure: sebut Ghazal secara natural di semua post, bukan hanya sekali\n' +
-'- Emotional resonance: orang share karena merasa terwakili, bukan karena info\n\n' +
-
-'CARA MENYEBUT GHAZAL — WAJIB DI SEMUA POST:\n' +
-'BENAR: "wewangian Ghazal mengingatkan aku ke sana"\n' +
-'BENAR: "Ghazal yang bikin aku ngerasa balik lagi ke sana"\n' +
-'BENAR: "aku nemuin wewangian Ghazal dan itu yang paling dekat"\n' +
-'SALAH: "Ghazal mengingatkan" (tanpa konteks wewangian)\n' +
-'SALAH: "Ghazal hadir untuk kamu" (terdengar seperti iklan)\n' +
-'SALAH: menyebut "Tuhan" — gunakan "Allah"\n\n' +
-
-'MIXING TONE — campurkan natural dan puitis:\n' +
-'Post pagi: lebih natural, seperti ngobrol pagi sama teman\n' +
-'Post siang: campuran — mulai natural, akhiri dengan kalimat yang sedikit puitis\n' +
-'Post malam: boleh lebih puitis, tapi tetap ada kalimat yang sangat membumi\n\n' +
-
-'FORMAT:\n' +
-'- Satu baris = satu ide. Gunakan \\n (satu enter) antar baris, BUKAN \\n\\n\n' +
-'- Maksimal 300 karakter per post\n' +
-'- Maksimal 2 hashtag di akhir\n' +
-'- Maksimal 1 emoji per post\n' +
-'- JANGAN mulai dengan salam, sapaan, atau "Pernahkah"\n\n' +
-
-'TUGAS — 3 post dengan topik berbeda:\n\n' +
-
-'POST PAGI (07:00) — natural, hangat, relatable\n' +
-'Topik: ' + tPagi + '\n' +
-'Angkat detail spesifik dari momen itu yang langsung bikin orang ngangguk.\n' +
-'Sebut wewangian Ghazal secara ringan di akhir — seperti bisikan.\n\n' +
-
-'POST SIANG (12:00) — campuran natural dan puitis\n' +
-'Topik: ' + tSiang + '\n' +
-'Ceritakan momen itu dengan satu detail yang sangat spesifik dan vivid.\n' +
-'Sebut wewangian Ghazal secara natural di tengah atau akhir.\n\n' +
-
-'POST MALAM (20:00) — emosional, boleh lebih puitis tapi tetap membumi\n' +
-'Topik: ' + tMalam + '\n' +
-'Bangun secara perlahan, sampai ke kalimat yang paling dalam.\n' +
-'Sebut wewangian Ghazal dengan cara yang terasa seperti penemuan, bukan iklan.\n\n' +
-
-'CONTOH YANG BENAR:\n' +
-'"Ada satu hal dari umroh yang susah dilupain.\n' +
-'Bukan tempatnya.\n' +
-'Bukan fotonya.\n' +
-'Tapi aromanya.\n' +
-'Wewangian Ghazal yang paling deket sama itu.\n' +
-'#Ghazal"\n\n' +
-
-'"Pulang dari Makkah, yang pertama aku lakuin:\n' +
-'buka koper dan cium pakaian ihram.\n' +
-'Aromanya masih ada.\n' +
-'Sekarang wewangian Ghazal yang ngejaga aroma itu tetap hidup.\n' +
-'#Ghazal #RinduMakkah"\n\n' +
-
-'CONTOH YANG SALAH:\n' +
-'"Ghazal mengingatkan kita akan keindahan tanah suci yang penuh berkah dari Allah SWT."\n\n' +
-
-'Balas HANYA JSON ini tanpa teks lain:\n' +
+'Kamu nulis konten Threads untuk wewangian Ghazal.\n\n' +
+'GHAZAL: bukan parfum untuk umroh/haji. Ghazal adalah obat rindu orang yang sudah pulang dari tanah suci. Satu semprotan wewangian Ghazal dan kamu ngerasa balik ke sana lagi.\n\n' +
+'AUDIENS: orang yang sudah pernah umroh/haji, kangen momen di sana, usia 28-55 tahun.\n\n' +
+'ATURAN NULIS:\n' +
+'- Satu ide per baris, enter sekali antar baris (JANGAN enter dua kali)\n' +
+'- Maks 250 karakter per post\n' +
+'- Maks 2 hashtag di akhir\n' +
+'- Maks 1 emoji per post\n' +
+'- Jangan mulai dengan salam atau sapaan\n' +
+'- Jangan sebut "Tuhan" — pakai "Allah"\n' +
+'- Ghazal disebut sebagai "wewangian Ghazal" bukan cuma "Ghazal"\n' +
+'- Mix antara natural (ngobrol) dan sedikit puitis — jangan semuanya puitis\n\n' +
+'CONTOH BENAR:\n' +
+'"Pulang dari Makkah, yang pertama aku lakuin:\nbuka koper dan cium baju ihram.\nAromanya masih ada.\nWewangian Ghazal yang paling deket sama itu.\n#Ghazal"\n\n' +
+'"Ada satu hal yang nggak bisa difoto dari umroh.\nBukan tempatnya.\nBukan momennya.\nTapi aromanya.\nWewangian Ghazal yang paling ngingetin aku ke sana.\n#Ghazal #RinduMakkah"\n\n' +
+'TOPIK PAGI: ' + tPagi + '\n' +
+'TOPIK SIANG: ' + tSiang + '\n' +
+'TOPIK MALAM: ' + tMalam + '\n\n' +
+'Balas HANYA JSON ini:\n' +
 '{"posts":[{"slot":"pagi","content":"..."},{"slot":"siang","content":"..."},{"slot":"malam","content":"..."}]}';
 
   try {
@@ -260,7 +198,7 @@ async function generate() {
       },
       body: JSON.stringify({
         model: 'claude-haiku-4-5-20251001',
-        max_tokens: 1200,
+        max_tokens: 1500,
         messages: [{ role: 'user', content: prompt }]
       })
     });
@@ -272,8 +210,11 @@ async function generate() {
 
     var data = await res.json();
     var raw = data.content.map(function(i){ return i.text || ''; }).join('');
-    var clean = raw.replace(/```json|```/g, '').trim();
-    var parsed = JSON.parse(clean);
+    // robust JSON extraction
+    var jsonMatch = raw.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Format response tidak valid, coba lagi.');
+    var parsed = JSON.parse(jsonMatch[0]);
+    if (!parsed.posts || !parsed.posts.length) throw new Error('Konten kosong, coba lagi.');
     renderPosts(parsed.posts);
 
   } catch(e) {
