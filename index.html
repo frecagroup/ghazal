@@ -73,7 +73,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   </div>
   <div class="card">
     <div class="card-label">Topik hari ini (opsional)</div>
-    <textarea class="topik-input" id="topik" placeholder="Kosongkan = AI pilih sendiri dari pool topik yang beragam&#10;Contoh: rindu Raudhah, kenangan tawaf pertama, dll..."></textarea>
+    <textarea class="topik-input" id="topik" placeholder="Kosongkan = AI pilih sendiri&#10;Contoh: rindu Raudhah, kenangan tawaf pertama, dll..."></textarea>
   </div>
   <button class="btn-gen" id="gen-btn" onclick="generate()">
     ✦ Generate 3 Post Hari Ini
@@ -89,38 +89,37 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <textarea class="copy-ta" id="copy-ta" readonly></textarea>
 
 <script>
-// Pool topik beragam — dipilih acak setiap generate
 var TOPIC_POOL = [
-  "momen pertama kali melihat Kabah secara langsung",
-  "perasaan saat tawaf di tengah keramaian",
-  "dinginnya air zamzam di tengah keramaian Makkah",
-  "aroma khas di dalam Masjidil Haram",
-  "momen saat berdoa di Multazam dan nangis tanpa tahu kenapa",
-  "kenangan shalat subuh berjamaah di Masjid Nabawi",
-  "rasa haru saat pertama kali mengucap talbiyah",
-  "perasaan berat meninggalkan Makkah di hari terakhir",
-  "kenangan minum zamzam langsung dari sumbernya",
-  "momen duduk memandangi Kabah berjam-jam",
-  "perasaan campur aduk di hari wukuf Arafah",
-  "kenangan melempar jumrah bersama keluarga",
-  "aroma bukhur yang mengingatkan pada masjid di tanah suci",
-  "kerinduan pada suasana sahur di Makkah",
-  "momen ketika pulang dan merasa dunia terasa berbeda",
-  "kangen desak-desakan di Raudhah tapi tetap mau balik lagi",
-  "rindu pada teman seperjalanan yang baru dikenal di sana",
-  "perasaan saat baju ihram dilepas untuk terakhir kalinya",
-  "kenangan wangi yang menempel di pakaian sepulang dari tanah suci",
-  "momen ketika foto-foto umroh muncul di galeri HP dan bikin mbrebes"
+  "momen pertama kali melihat Kabah langsung — bukan di foto, bukan di video",
+  "perasaan waktu tawaf dan ngerasa kecil banget di tengah jutaan manusia",
+  "air zamzam yang dingin di tengah panasnya Makkah",
+  "momen duduk berjam-jam mandangin Kabah tanpa ngapa-ngapain",
+  "nangis di Multazam tanpa tahu kenapa, tapi ngerasa lega banget",
+  "shalat subuh berjamaah di Masjid Nabawi — sunyi tapi ngerasa penuh",
+  "aroma khas Masjidil Haram yang susah dijelasin tapi langsung bikin rindu",
+  "perasaan berat waktu pesawat take off ninggalin Makkah",
+  "kenangan sahur di hotel dekat Masjidil Haram, dengerin azan subuh",
+  "momen ihram dilepas untuk terakhir kali — campur aduk rasanya",
+  "pulang dari tanah suci tapi ngerasa dunia biasa terasa asing",
+  "foto-foto umroh tiba-tiba muncul di galeri HP dan bikin sesak",
+  "kangen desak-desakan di Raudhah — capek tapi mau lagi",
+  "wukuf di Arafah — ngerasa semua orang di sana sama-sama butuh Allah",
+  "aroma bukhur yang tiba-tiba bikin keinget suasana masjid di sana",
+  "teman seperjalanan yang baru kenal tapi ngerasa sudah saudara lama",
+  "rindu pada versi diri sendiri yang lebih tenang waktu di tanah suci",
+  "kenangan jalan kaki subuh-subuh ke masjid sambil liat langit Makkah",
+  "waktu pertama kali ngucap talbiyah — merinding sampai ke tulang",
+  "momen di mana ngerasa doa-doa akhirnya didengar"
 ];
 
-function getRandomTopics(n) {
+function getRandTopics(n) {
   var pool = TOPIC_POOL.slice();
-  var chosen = [];
+  var res = [];
   for (var i = 0; i < n; i++) {
     var idx = Math.floor(Math.random() * pool.length);
-    chosen.push(pool.splice(idx, 1)[0]);
+    res.push(pool.splice(idx, 1)[0]);
   }
-  return chosen;
+  return res;
 }
 
 window.onload = function() {
@@ -162,72 +161,91 @@ async function generate() {
   output.innerHTML = '';
   hideErr();
 
-  // Pilih 3 topik acak untuk variasi
-  var randomTopics = getRandomTopics(3);
-  var topikPagi  = topik || randomTopics[0];
-  var topikSiang = topik || randomTopics[1];
-  var topikMalam = topik || randomTopics[2];
+  var rand = getRandTopics(3);
+  var tPagi  = topik || rand[0];
+  var tSiang = topik || rand[1];
+  var tMalam = topik || rand[2];
 
   var prompt =
-'Kamu adalah content creator Indonesia yang nulis konten Threads untuk brand parfum Ghazal.\n\n' +
+'Kamu adalah content creator untuk brand wewangian Ghazal di Threads.\n\n' +
 
-'POSITIONING GHAZAL — inti dari semua konten:\n' +
-'Ghazal bukan parfum untuk dibawa umroh/haji.\n' +
-'Ghazal adalah obat rindu — untuk mereka yang sudah pulang tapi ingin terus merasakan kenangan tanah suci.\n' +
-'Seperti satu semprotan yang bisa membawa kamu kembali ke sana.\n' +
-'Aroma sebagai portal waktu. Wangi sebagai cara pulang ke momen terbaik.\n\n' +
+'BRAND GHAZAL:\n' +
+'Wewangian Ghazal bukan untuk dibawa saat umroh atau haji.\n' +
+'Ghazal adalah obat rindu — untuk yang sudah pulang dari tanah suci tapi hatinya masih di sana.\n' +
+'Satu semprotan wewangian Ghazal, dan tiba-tiba kamu ada di sana lagi.\n' +
+'Ghazal = portal waktu dalam bentuk wangi.\n\n' +
 
-'TARGET: orang yang SUDAH pernah umroh/haji. Yang pulang ke rumah tapi hatinya masih di Makkah.\n\n' +
+'TARGET:\n' +
+'Orang yang SUDAH pernah umroh atau haji.\n' +
+'Yang pulang tapi masih sering keinget momen-momen di sana.\n' +
+'Usia 28-55 tahun. Religius tapi santai. Emosional soal kenangan ibadah.\n\n' +
 
-'ATURAN PENTING — GHAZAL WAJIB DISEBUT DI SEMUA POST:\n' +
-'- Post pagi: sebut Ghazal secara sangat subtle, seperti bisikan di akhir\n' +
-'- Post siang: sebut Ghazal di tengah atau akhir, natural seperti rekomendasi teman\n' +
-'- Post malam: sebut Ghazal lebih terasa, tapi tetap bukan iklan — lebih ke "aku nemu sesuatu"\n\n' +
+'PRINSIP COPYWRITING YANG WAJIB DITERAPKAN:\n' +
+'1. Pakai bahasa yang dipakai audiens — bukan bahasa brand\n' +
+'2. Cerita spesifik lebih kuat dari kalimat umum\n' +
+'3. Benefit (apa yang dirasakan) lebih kuat dari fitur (produknya)\n' +
+'4. Satu ide per baris, bangun secara bertahap\n' +
+'5. Hook di baris pertama — harus bikin orang berhenti scroll\n\n' +
 
-'FORMAT TEKS WAJIB:\n' +
-'Gunakan \\n satu kali antar baris. DILARANG \\n\\n (baris kosong).\n\n' +
+'PRINSIP PSIKOLOGI MARKETING YANG DITERAPKAN:\n' +
+'- Nostalgia trigger: bangkitkan memori spesifik yang vivid, bukan umum\n' +
+'- Availability heuristic: buat momen terasa mudah dibayangkan\n' +
+'- Mere exposure: sebut Ghazal secara natural di semua post, bukan hanya sekali\n' +
+'- Emotional resonance: orang share karena merasa terwakili, bukan karena info\n\n' +
 
-'KARAKTER THREADS:\n' +
-'- Hook kuat di baris pertama, bikin orang berhenti scroll\n' +
-'- Kalimat pendek, satu ide per baris\n' +
-'- Pakai "kamu" bukan "Anda"\n' +
-'- Emosi dan nostalgia lebih kuat dari informasi\n' +
-'- JANGAN mulai dengan salam atau sapaan\n' +
-'- Maksimal 300 karakter, maksimal 2 hashtag, maksimal 1 emoji\n\n' +
+'CARA MENYEBUT GHAZAL — WAJIB DI SEMUA POST:\n' +
+'BENAR: "wewangian Ghazal mengingatkan aku ke sana"\n' +
+'BENAR: "Ghazal yang bikin aku ngerasa balik lagi ke sana"\n' +
+'BENAR: "aku nemuin wewangian Ghazal dan itu yang paling dekat"\n' +
+'SALAH: "Ghazal mengingatkan" (tanpa konteks wewangian)\n' +
+'SALAH: "Ghazal hadir untuk kamu" (terdengar seperti iklan)\n' +
+'SALAH: menyebut "Tuhan" — gunakan "Allah"\n\n' +
 
-'TUGAS — buat 3 post dengan topik berbeda-beda:\n\n' +
+'MIXING TONE — campurkan natural dan puitis:\n' +
+'Post pagi: lebih natural, seperti ngobrol pagi sama teman\n' +
+'Post siang: campuran — mulai natural, akhiri dengan kalimat yang sedikit puitis\n' +
+'Post malam: boleh lebih puitis, tapi tetap ada kalimat yang sangat membumi\n\n' +
 
-'Post PAGI (07:00)\n' +
-'Topik: ' + topikPagi + '\n' +
-'Vibe: hangat, seperti kenangan yang muncul tiba-tiba di pagi hari\n' +
-'Sebut Ghazal sangat subtle di akhir — cukup satu kalimat pendek\n\n' +
+'FORMAT:\n' +
+'- Satu baris = satu ide. Gunakan \\n (satu enter) antar baris, BUKAN \\n\\n\n' +
+'- Maksimal 300 karakter per post\n' +
+'- Maksimal 2 hashtag di akhir\n' +
+'- Maksimal 1 emoji per post\n' +
+'- JANGAN mulai dengan salam, sapaan, atau "Pernahkah"\n\n' +
 
-'Post SIANG (12:00)\n' +
-'Topik: ' + topikSiang + '\n' +
-'Vibe: reflektif, sedikit lebih panjang, ada momen spesifik yang diceritakan\n' +
-'Sebut Ghazal secara natural, tidak maksa\n\n' +
+'TUGAS — 3 post dengan topik berbeda:\n\n' +
 
-'Post MALAM (20:00)\n' +
-'Topik: ' + topikMalam + '\n' +
-'Vibe: paling emosional, cerita tentang bagaimana aroma membawa kembali ke kenangan\n' +
-'Ghazal disebut lebih terasa — seperti teman merekomendasikan sesuatu yang mengubah hidupnya\n\n' +
+'POST PAGI (07:00) — natural, hangat, relatable\n' +
+'Topik: ' + tPagi + '\n' +
+'Angkat detail spesifik dari momen itu yang langsung bikin orang ngangguk.\n' +
+'Sebut wewangian Ghazal secara ringan di akhir — seperti bisikan.\n\n' +
 
-'CONTOH TONE YANG BENAR:\n' +
-'"Pulang dari Makkah itu aneh.\n' +
-'Badanmu di sini.\n' +
-'Tapi hatimu masih di sana.\n' +
-'Ghazal untuk yang ngerasain ini.\n' +
+'POST SIANG (12:00) — campuran natural dan puitis\n' +
+'Topik: ' + tSiang + '\n' +
+'Ceritakan momen itu dengan satu detail yang sangat spesifik dan vivid.\n' +
+'Sebut wewangian Ghazal secara natural di tengah atau akhir.\n\n' +
+
+'POST MALAM (20:00) — emosional, boleh lebih puitis tapi tetap membumi\n' +
+'Topik: ' + tMalam + '\n' +
+'Bangun secara perlahan, sampai ke kalimat yang paling dalam.\n' +
+'Sebut wewangian Ghazal dengan cara yang terasa seperti penemuan, bukan iklan.\n\n' +
+
+'CONTOH YANG BENAR:\n' +
+'"Ada satu hal dari umroh yang susah dilupain.\n' +
+'Bukan tempatnya.\n' +
+'Bukan fotonya.\n' +
+'Tapi aromanya.\n' +
+'Wewangian Ghazal yang paling deket sama itu.\n' +
 '#Ghazal"\n\n' +
 
-'"Waktu itu aku duduk di depan Kabah selama dua jam.\n' +
-'Nggak ngapa-ngapain.\n' +
-'Cuma duduk.\n' +
-'Dan itu momen terbaik dalam hidupku.\n' +
-'Ghazal yang selalu ngingetin aku ke sana.\n' +
+'"Pulang dari Makkah, yang pertama aku lakuin:\n' +
+'buka koper dan cium pakaian ihram.\n' +
+'Aromanya masih ada.\n' +
+'Sekarang wewangian Ghazal yang ngejaga aroma itu tetap hidup.\n' +
 '#Ghazal #RinduMakkah"\n\n' +
 
 'CONTOH YANG SALAH:\n' +
-'"Assalamualaikum! Kenangan umroh memang indah ya. Ghazal hadir untuk menemani perjalanan ibadahmu!"\n\n' +
+'"Ghazal mengingatkan kita akan keindahan tanah suci yang penuh berkah dari Allah SWT."\n\n' +
 
 'Balas HANYA JSON ini tanpa teks lain:\n' +
 '{"posts":[{"slot":"pagi","content":"..."},{"slot":"siang","content":"..."},{"slot":"malam","content":"..."}]}';
