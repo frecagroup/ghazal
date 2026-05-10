@@ -13,42 +13,32 @@
   --txt:#1A1A1A;--txt2:#666;
 }
 body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--green);min-height:100vh;color:var(--txt)}
-
 .header{text-align:center;padding:32px 20px 24px;border-bottom:0.5px solid rgba(201,168,76,.15)}
 .h-arabic{font-size:44px;color:var(--gold);display:block;line-height:1;margin-bottom:4px}
 .h-name{font-size:20px;color:var(--cream);letter-spacing:6px;text-transform:uppercase}
 .h-sub{font-size:11px;color:rgba(201,168,76,.45);letter-spacing:2px;text-transform:uppercase;margin-top:5px}
-
 .wrap{padding:20px 16px 100px;max-width:600px;margin:0 auto}
-
 .card{background:rgba(255,255,255,.04);border:0.5px solid rgba(201,168,76,.15);border-radius:14px;padding:16px;margin-bottom:14px}
 .card-label{font-size:10px;color:rgba(201,168,76,.55);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-
 .api-row{display:flex;gap:8px}
 .api-input{flex:1;background:rgba(0,0,0,.3);border:0.5px solid rgba(201,168,76,.2);border-radius:9px;padding:11px 13px;font-size:14px;color:var(--cream);font-family:inherit;outline:none;min-width:0}
 .api-input::placeholder{color:rgba(250,247,240,.2);font-size:13px}
 .btn-save{padding:11px 16px;background:rgba(201,168,76,.12);border:0.5px solid rgba(201,168,76,.3);border-radius:9px;color:var(--gold);font-size:13px;font-family:inherit;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .key-ok{font-size:11px;color:#7ED4A0;margin-top:7px;display:none}
-
 .topik-input{width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(201,168,76,.15);border-radius:9px;padding:12px 13px;font-size:14px;color:var(--cream);font-family:inherit;resize:none;outline:none;min-height:80px;line-height:1.6}
 .topik-input::placeholder{color:rgba(250,247,240,.2);font-size:13px}
-
 .btn-gen{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));border:none;border-radius:12px;color:var(--green);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:24px;-webkit-tap-highlight-color:transparent}
 .btn-gen:disabled{opacity:.5}
 .btn-gen:active{opacity:.85}
-
 .loading{text-align:center;padding:40px 0;display:none}
 .spin{width:36px;height:36px;border:2px solid rgba(201,168,76,.1);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 12px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .loading-txt{font-size:13px;color:rgba(201,168,76,.5);letter-spacing:1px}
-
 .err-box{background:rgba(220,50,50,.08);border:0.5px solid rgba(220,50,50,.25);border-radius:10px;padding:12px 14px;color:#FF8A8A;font-size:13px;margin-bottom:16px;display:none;line-height:1.5}
-
 .post-card{background:var(--cream);border-radius:14px;overflow:hidden;margin-bottom:14px;animation:up .35s ease both}
 .post-card:nth-child(2){animation-delay:.08s}
 .post-card:nth-child(3){animation-delay:.16s}
 @keyframes up{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
-
 .post-head{padding:11px 16px;display:flex;align-items:center;gap:10px}
 .ph-pagi{background:#FFF8E8;border-bottom:1px solid #F0E4B8}
 .ph-siang{background:#EAF4F0;border-bottom:1px solid #C5DDD4}
@@ -56,30 +46,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .slot-emoji{font-size:20px;line-height:1}
 .slot-lbl{font-size:14px;font-weight:500;color:var(--txt)}
 .slot-time{font-size:11px;color:var(--txt2);margin-top:1px}
-
 .post-body{padding:16px;font-size:15px;line-height:1.6;color:var(--txt);white-space:pre-wrap;border-bottom:1px solid var(--cream2)}
-
 .post-foot{padding:10px 16px;background:var(--cream2);display:flex;align-items:center;justify-content:space-between}
 .char-lbl{font-size:11px;color:var(--txt2)}
 .btn-copy{padding:10px 0;background:var(--green);color:var(--gold);border:none;border-radius:8px;font-size:13px;font-family:inherit;font-weight:500;cursor:pointer;-webkit-tap-highlight-color:transparent;width:110px;text-align:center;transition:background .15s}
 .btn-copy:active{background:var(--green2)}
 .btn-copy.ok{background:#1a4a2a;color:#7ED4A0}
-
 .copy-ta{position:fixed;top:50%;left:50%;width:2px;height:2px;opacity:0;pointer-events:none;font-size:16px}
-
 .footer{text-align:center;padding:32px 0 16px;font-size:11px;color:rgba(250,247,240,.15);letter-spacing:1px}
 </style>
 </head>
 <body>
-
 <div class="header">
   <span class="h-arabic">&#x063A;&#x0632;&#x0627;&#x0644;</span>
   <div class="h-name">Ghazal</div>
   <div class="h-sub">Threads Content Agent</div>
 </div>
-
 <div class="wrap">
-
   <div class="card">
     <div class="card-label">Claude API Key</div>
     <div class="api-row">
@@ -88,30 +71,58 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
     </div>
     <div class="key-ok" id="key-ok">&#10003; Tersimpan</div>
   </div>
-
   <div class="card">
     <div class="card-label">Topik hari ini (opsional)</div>
-    <textarea class="topik-input" id="topik" placeholder="Kosongkan = AI pilih sendiri&#10;Contoh: rindu azan Masjidil Haram, kenangan pertama mencium wangi tanah suci, dll..."></textarea>
+    <textarea class="topik-input" id="topik" placeholder="Kosongkan = AI pilih sendiri dari pool topik yang beragam&#10;Contoh: rindu Raudhah, kenangan tawaf pertama, dll..."></textarea>
   </div>
-
   <button class="btn-gen" id="gen-btn" onclick="generate()">
     ✦ Generate 3 Post Hari Ini
   </button>
-
   <div class="err-box" id="err-box"></div>
   <div class="loading" id="loading">
     <div class="spin"></div>
     <div class="loading-txt">Sedang menulis...</div>
   </div>
-
   <div id="output"></div>
-
   <div class="footer">Ghazal · Freca Group Indonesia</div>
 </div>
-
 <textarea class="copy-ta" id="copy-ta" readonly></textarea>
 
 <script>
+// Pool topik beragam — dipilih acak setiap generate
+var TOPIC_POOL = [
+  "momen pertama kali melihat Kabah secara langsung",
+  "perasaan saat tawaf di tengah keramaian",
+  "dinginnya air zamzam di tengah keramaian Makkah",
+  "aroma khas di dalam Masjidil Haram",
+  "momen saat berdoa di Multazam dan nangis tanpa tahu kenapa",
+  "kenangan shalat subuh berjamaah di Masjid Nabawi",
+  "rasa haru saat pertama kali mengucap talbiyah",
+  "perasaan berat meninggalkan Makkah di hari terakhir",
+  "kenangan minum zamzam langsung dari sumbernya",
+  "momen duduk memandangi Kabah berjam-jam",
+  "perasaan campur aduk di hari wukuf Arafah",
+  "kenangan melempar jumrah bersama keluarga",
+  "aroma bukhur yang mengingatkan pada masjid di tanah suci",
+  "kerinduan pada suasana sahur di Makkah",
+  "momen ketika pulang dan merasa dunia terasa berbeda",
+  "kangen desak-desakan di Raudhah tapi tetap mau balik lagi",
+  "rindu pada teman seperjalanan yang baru dikenal di sana",
+  "perasaan saat baju ihram dilepas untuk terakhir kalinya",
+  "kenangan wangi yang menempel di pakaian sepulang dari tanah suci",
+  "momen ketika foto-foto umroh muncul di galeri HP dan bikin mbrebes"
+];
+
+function getRandomTopics(n) {
+  var pool = TOPIC_POOL.slice();
+  var chosen = [];
+  for (var i = 0; i < n; i++) {
+    var idx = Math.floor(Math.random() * pool.length);
+    chosen.push(pool.splice(idx, 1)[0]);
+  }
+  return chosen;
+}
+
 window.onload = function() {
   var k = localStorage.getItem('ghazal_key');
   if (k) {
@@ -151,68 +162,78 @@ async function generate() {
   output.innerHTML = '';
   hideErr();
 
+  // Pilih 3 topik acak untuk variasi
+  var randomTopics = getRandomTopics(3);
+  var topikPagi  = topik || randomTopics[0];
+  var topikSiang = topik || randomTopics[1];
+  var topikMalam = topik || randomTopics[2];
+
   var prompt =
-'Kamu adalah content creator Indonesia yang nulis konten Threads untuk brand parfum bernama Ghazal.\n\n' +
+'Kamu adalah content creator Indonesia yang nulis konten Threads untuk brand parfum Ghazal.\n\n' +
 
-'POSITIONING GHAZAL — ini yang paling penting, pahami dulu:\n' +
-'Ghazal bukan parfum untuk dibawa saat umroh atau haji.\n' +
-'Ghazal adalah obat rindu — untuk mereka yang sudah pulang dari tanah suci tapi ingin terus merasakan kenangannya.\n' +
-'Satu semprotan Ghazal = kamu tiba-tiba ada di sana lagi.\n' +
-'Aroma sebagai portal waktu. Wangi sebagai cara pulang ke momen terbaik dalam hidup.\n\n' +
+'POSITIONING GHAZAL — inti dari semua konten:\n' +
+'Ghazal bukan parfum untuk dibawa umroh/haji.\n' +
+'Ghazal adalah obat rindu — untuk mereka yang sudah pulang tapi ingin terus merasakan kenangan tanah suci.\n' +
+'Seperti satu semprotan yang bisa membawa kamu kembali ke sana.\n' +
+'Aroma sebagai portal waktu. Wangi sebagai cara pulang ke momen terbaik.\n\n' +
 
-'TARGET AUDIENS:\n' +
-'Orang yang SUDAH pernah umroh atau haji.\n' +
-'Mereka yang pulang ke rumah tapi hatinya masih di Makkah.\n' +
-'Yang kangen suara azan Masjidil Haram, desak-desakan di Raudhah, dinginnya zamzam, aroma Kabah.\n' +
-'Usia 28-55 tahun. Religius tapi tidak kaku. Emosional terhadap kenangan ibadah.\n\n' +
+'TARGET: orang yang SUDAH pernah umroh/haji. Yang pulang ke rumah tapi hatinya masih di Makkah.\n\n' +
 
-'KARAKTER KONTEN THREADS YANG EFEKTIF:\n' +
-'- Satu kalimat per baris, tanpa baris kosong di antara\n' +
-'- Hook kuat di baris pertama — bikin orang berhenti scroll\n' +
-'- Tulis seperti ngobrol sama teman, pakai "kamu"\n' +
-'- Emosi dan nostalgia lebih kuat dari informasi\n' +
-'- Pendek, padat, mengena — tidak perlu panjang\n' +
-'- Jangan ceramah, jangan promosi maksa\n\n' +
+'ATURAN PENTING — GHAZAL WAJIB DISEBUT DI SEMUA POST:\n' +
+'- Post pagi: sebut Ghazal secara sangat subtle, seperti bisikan di akhir\n' +
+'- Post siang: sebut Ghazal di tengah atau akhir, natural seperti rekomendasi teman\n' +
+'- Post malam: sebut Ghazal lebih terasa, tapi tetap bukan iklan — lebih ke "aku nemu sesuatu"\n\n' +
 
 'FORMAT TEKS WAJIB:\n' +
-'Gunakan \\n satu kali antar baris. DILARANG \\n\\n (baris kosong).\n' +
-'Contoh BENAR:\n' +
-'"Ada yang pernah nangis di pesawat pulang dari Makkah?\n' +
-'Bukan karena sedih.\n' +
-'Tapi karena nggak mau pergi.\n' +
-'Ghazal untuk yang rindu itu.\n' +
+'Gunakan \\n satu kali antar baris. DILARANG \\n\\n (baris kosong).\n\n' +
+
+'KARAKTER THREADS:\n' +
+'- Hook kuat di baris pertama, bikin orang berhenti scroll\n' +
+'- Kalimat pendek, satu ide per baris\n' +
+'- Pakai "kamu" bukan "Anda"\n' +
+'- Emosi dan nostalgia lebih kuat dari informasi\n' +
+'- JANGAN mulai dengan salam atau sapaan\n' +
+'- Maksimal 300 karakter, maksimal 2 hashtag, maksimal 1 emoji\n\n' +
+
+'TUGAS — buat 3 post dengan topik berbeda-beda:\n\n' +
+
+'Post PAGI (07:00)\n' +
+'Topik: ' + topikPagi + '\n' +
+'Vibe: hangat, seperti kenangan yang muncul tiba-tiba di pagi hari\n' +
+'Sebut Ghazal sangat subtle di akhir — cukup satu kalimat pendek\n\n' +
+
+'Post SIANG (12:00)\n' +
+'Topik: ' + topikSiang + '\n' +
+'Vibe: reflektif, sedikit lebih panjang, ada momen spesifik yang diceritakan\n' +
+'Sebut Ghazal secara natural, tidak maksa\n\n' +
+
+'Post MALAM (20:00)\n' +
+'Topik: ' + topikMalam + '\n' +
+'Vibe: paling emosional, cerita tentang bagaimana aroma membawa kembali ke kenangan\n' +
+'Ghazal disebut lebih terasa — seperti teman merekomendasikan sesuatu yang mengubah hidupnya\n\n' +
+
+'CONTOH TONE YANG BENAR:\n' +
+'"Pulang dari Makkah itu aneh.\n' +
+'Badanmu di sini.\n' +
+'Tapi hatimu masih di sana.\n' +
+'Ghazal untuk yang ngerasain ini.\n' +
 '#Ghazal"\n\n' +
 
-'TUGAS — buat 3 post Threads:\n\n' +
+'"Waktu itu aku duduk di depan Kabah selama dua jam.\n' +
+'Nggak ngapa-ngapain.\n' +
+'Cuma duduk.\n' +
+'Dan itu momen terbaik dalam hidupku.\n' +
+'Ghazal yang selalu ngingetin aku ke sana.\n' +
+'#Ghazal #RinduMakkah"\n\n' +
 
-'Post PAGI (07:00) — sentuh perasaan di awal hari.\n' +
-'Angkat satu momen kecil yang pasti pernah dirasakan orang yang sudah umroh/haji.\n' +
-'Bisa: suara azan subuh di Masjidil Haram, dinginnya air zamzam, aroma khas tanah suci, dll.\n' +
-'Bikin mereka ngangguk dan bilang "iya banget".\n\n' +
-
-'Post SIANG (12:00) — refleksi yang lebih dalam.\n' +
-'Tentang rasa rindu yang tidak pergi meski sudah lama pulang.\n' +
-'Atau tentang bagaimana kenangan ibadah masih terasa nyata di hari biasa.\n' +
-'Bisa pakai sudut pandang orang pertama atau cerita pendek.\n\n' +
-
-'Post MALAM (20:00) — paling emosional, paling dekat dengan produk.\n' +
-'Cerita tentang momen ketika aroma membawa seseorang kembali ke kenangan tanah suci.\n' +
-'Sebut Ghazal di sini secara natural — bukan iklan, tapi seperti teman yang bilang "aku nemuin sesuatu yang bikin aku balik lagi ke sana".\n\n' +
-
-(topik ? 'TOPIK HARI INI: ' + topik + '\n\n' : 'Pilih sudut nostalgia yang paling menyentuh seputar kenangan umroh/haji.\n\n') +
-
-'ATURAN LAIN:\n' +
-'- Cukup sebut "Ghazal" — jangan sebut nama produk/varian/bahan spesifik\n' +
-'- Maksimal 300 karakter per post\n' +
-'- Maksimal 2 hashtag singkat di akhir\n' +
-'- Maksimal 1 emoji per post\n' +
-'- JANGAN mulai dengan salam, sapaan, atau "Pernahkah kamu"\n\n' +
+'CONTOH YANG SALAH:\n' +
+'"Assalamualaikum! Kenangan umroh memang indah ya. Ghazal hadir untuk menemani perjalanan ibadahmu!"\n\n' +
 
 'Balas HANYA JSON ini tanpa teks lain:\n' +
 '{"posts":[{"slot":"pagi","content":"..."},{"slot":"siang","content":"..."},{"slot":"malam","content":"..."}]}';
 
   try {
-    var res = await fetch('https://api.anthropic.com/v1/messages', {
+    var res = await fetch('https://ghazal-proxy.ubed-fahmi.workers.dev', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -280,13 +301,10 @@ function copyPost(bodyId, btnId) {
   var el = document.getElementById(bodyId);
   var btn = document.getElementById(btnId);
   var text = el.innerText || el.textContent;
-
   if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
     navigator.clipboard.writeText(text).then(function() {
       flashOk(btn);
-    }).catch(function() {
-      fallbackCopy(text, btn);
-    });
+    }).catch(function() { fallbackCopy(text, btn); });
     return;
   }
   fallbackCopy(text, btn);
