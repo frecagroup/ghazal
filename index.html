@@ -25,8 +25,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .api-input::placeholder{color:rgba(250,247,240,.2);font-size:13px}
 .btn-save{padding:11px 16px;background:rgba(201,168,76,.12);border:0.5px solid rgba(201,168,76,.3);border-radius:9px;color:var(--gold);font-size:13px;font-family:inherit;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .key-ok{font-size:11px;color:#7ED4A0;margin-top:7px;display:none}
-
-/* TOPIC PICKER */
 .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
 .topic-btn{padding:9px 10px;background:rgba(0,0,0,.2);border:0.5px solid rgba(201,168,76,.15);border-radius:9px;color:rgba(250,247,240,.55);font-size:12px;font-family:inherit;cursor:pointer;text-align:left;line-height:1.35;-webkit-tap-highlight-color:transparent;transition:all .15s}
 .topic-btn:active{background:rgba(201,168,76,.1)}
@@ -35,8 +33,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .topik-input{width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(201,168,76,.15);border-radius:9px;padding:11px 13px;font-size:14px;color:var(--cream);font-family:inherit;resize:none;outline:none;min-height:60px;line-height:1.6}
 .topik-input::placeholder{color:rgba(250,247,240,.2);font-size:13px}
 .topic-clear{font-size:11px;color:rgba(201,168,76,.4);cursor:pointer;margin-top:6px;display:none;-webkit-tap-highlight-color:transparent}
-.topic-clear:active{color:var(--gold)}
-
 .btn-gen{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));border:none;border-radius:12px;color:var(--green);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:24px;-webkit-tap-highlight-color:transparent}
 .btn-gen:disabled{opacity:.5}
 .btn-gen:active{opacity:.85}
@@ -73,7 +69,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   <div class="h-sub">Threads Content Agent</div>
 </div>
 <div class="wrap">
-
   <div class="card">
     <div class="card-label">Claude API Key</div>
     <div class="api-row">
@@ -122,7 +117,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 var selectedTopic = '';
 
 function pilihTopik(btn, topik) {
-  // toggle
   if (btn.classList.contains('active')) {
     btn.classList.remove('active');
     selectedTopic = '';
@@ -143,27 +137,14 @@ function clearTopik() {
   document.getElementById('topic-clear').style.display = 'none';
 }
 
-// If user types manually, deselect buttons
-document.addEventListener('DOMContentLoaded', function() {
-  var ta = document.getElementById('topik');
-  if (ta) ta.addEventListener('input', function() {
-    if (ta.value.trim()) {
-      document.querySelectorAll('.topic-btn').forEach(function(b){ b.classList.remove('active'); });
-      selectedTopic = '';
-      document.getElementById('topic-clear').style.display = 'none';
-    }
-  });
-});
-
 window.onload = function() {
   var k = localStorage.getItem('ghazal_key');
   if (k) {
     document.getElementById('api-key').value = k;
     document.getElementById('key-ok').style.display = 'block';
   }
-  var ta = document.getElementById('topik');
-  if (ta) ta.addEventListener('input', function() {
-    if (ta.value.trim()) {
+  document.getElementById('topik').addEventListener('input', function() {
+    if (this.value.trim()) {
       document.querySelectorAll('.topic-btn').forEach(function(b){ b.classList.remove('active'); });
       selectedTopic = '';
       document.getElementById('topic-clear').style.display = 'none';
@@ -185,8 +166,7 @@ function getKey() {
 }
 
 function getTopik() {
-  var manual = document.getElementById('topik').value.trim();
-  return manual || selectedTopic || '';
+  return document.getElementById('topik').value.trim() || selectedTopic || '';
 }
 
 function normalizeText(s) {
@@ -208,37 +188,38 @@ async function generate() {
   hideErr();
 
   var prompt =
-'Kamu adalah content writer untuk wewangian Ghazal di Threads.\n\n' +
-'TENTANG GHAZAL:\n' +
-'Wewangian Ghazal bukan untuk dibawa saat umroh atau haji.\n' +
-'Ghazal adalah obat rindu — untuk yang sudah pulang tapi hatinya masih di sana.\n' +
-'Satu semprotan wewangian Ghazal, dan kamu tiba-tiba ada di sana lagi.\n\n' +
-'AUDIENS: sudah pernah umroh/haji. Kangen. Usia 28-55 tahun.\n\n' +
-'CARA MENULIS YANG BENAR:\n' +
-'Gunakan diksi yang memicu ingatan sensoris — bukan kata abstrak.\n' +
-'Bukan "indah" tapi "bikin dada sesak".\n' +
-'Bukan "berkesan" tapi "nggak bisa dilupain sampai sekarang".\n' +
-'Bukan "tenang" tapi "ngerasa kayak napas lega setelah lama menahan".\n' +
-'Setiap post harus bikin pembaca ngangguk dan berkata "iya, persis banget".\n' +
-'Cerita satu momen spesifik — bukan kesan umum.\n\n' +
+'Kamu content writer untuk wewangian Ghazal di Threads.\n\n' +
+'GHAZAL: obat rindu untuk yang sudah pulang dari tanah suci tapi hatinya masih di sana. Bukan parfum untuk dibawa umroh.\n\n' +
+'CARA MENYEBUT GHAZAL — INI YANG PALING PENTING:\n' +
+'Ghazal harus muncul SETELAH cerita selesai dibangun.\n' +
+'Penyebutannya harus terasa seperti penemuan pribadi, bukan kesimpulan iklan.\n' +
+'Selalu ada jembatan konteks sebelum sebut Ghazal — jangan tiba-tiba.\n\n' +
+'VARIASI CARA SEBUT GHAZAL (jangan selalu sama):\n' +
+'- "Sampai aku pulang dan nemuin Ghazal."\n' +
+'- "Wewangian Ghazal yang pertama kali bawa aku balik ke sana."\n' +
+'- "Sekarang, Ghazal yang jagain rindu itu."\n' +
+'- "Aku nemuin Ghazal. Dan tiba-tiba aku ada di sana lagi."\n' +
+'- "Di rumah, yang paling deket sama perasaan itu adalah Ghazal."\n\n' +
+'YANG SALAH:\n' +
+'❌ "Wewangian Ghazal bawa balik suara itu ke telinga aku." (tiba-tiba, tanpa jembatan)\n' +
+'❌ "Wewangian Ghazal itu yang bikin aku inget perasaan itu lagi." (terasa iklan)\n' +
+'❌ Setiap post selalu diakhiri "Wewangian Ghazal..."\n\n' +
+'YANG BENAR:\n' +
+'✅ Cerita dulu sampai tuntas. Emosi naik dulu. LALU Ghazal masuk natural.\n' +
+'✅ "Dua tahun nunggu, mimpi, cicil, berdoa. \'Akhirnya.\' Kata itu masih aku denger sampai sekarang. Setelah pulang, aku nemuin Ghazal. Tiap cium wanginya, kata itu muncul lagi."\n\n' +
+'DIKSI: pakai kata sensoris, spesifik, visceral. Bukan "indah" tapi "bikin dada sesak". Bukan "berkesan" tapi "nggak bisa dilupain".\n\n' +
 'FORMAT:\n' +
-'- Enter sekali antar baris (JANGAN dua kali)\n' +
-'- Maks 260 karakter per post\n' +
-'- Maks 2 hashtag di akhir\n' +
+'- Enter sekali antar baris\n' +
+'- Maks 270 karakter per post\n' +
+'- Maks 2 hashtag\n' +
 '- Maks 1 emoji\n' +
-'- Jangan mulai dengan salam atau sapaan\n' +
+'- Jangan mulai dengan salam\n' +
 '- Pakai "Allah" bukan "Tuhan"\n' +
-'- Sebut "wewangian Ghazal" bukan cuma "Ghazal"\n' +
-'- Mix natural dan sedikit puitis — jangan semua puitis\n\n' +
-'CONTOH DIKSI YANG BENAR:\n' +
-'"Baju ihram itu aku simpen di lemari.\nSampai sekarang.\nKadang aku buka lemari itu cuma buat cium aromanya.\nWewangian Ghazal yang paling deket sama itu.\n#Ghazal"\n\n' +
-'"Ada satu momen di tawaf yang nggak bisa aku ceritain ke siapapun.\nBukan karena nggak mau.\nTapi karena nggak ada kata yang cukup.\nWewangian Ghazal yang bawa aku balik ke sana.\n#Ghazal #RinduMakkah"\n\n' +
-'CONTOH DIKSI YANG SALAH:\n' +
-'"Kenangan umroh memang sangat indah dan berkesan bagi setiap muslim yang pernah ke sana."\n\n' +
+'- Mix natural dan puitis\n\n' +
 (topik
-  ? 'TOPIK HARI INI: ' + topik + '\n\nBuat 3 post dari sudut berbeda topik yang sama.\nPagi: momen spesifik dan ringan.\nSiang: lebih dalam, ada satu detail kecil yang powerful.\nMalam: paling emosional, paling nyentuh, sebut wewangian Ghazal dengan cara yang terasa seperti penemuan.\n\n'
-  : 'Pilih 3 topik BERBEDA dari pool momen tanah suci.\nJangan pilih topik yang mirip.\nPagi: satu momen yang ringan tapi ngena.\nSiang: momen yang lebih berat secara emosional.\nMalam: momen paling personal dan intim.\n\n') +
-'Balas HANYA JSON ini:\n' +
+  ? 'TOPIK: ' + topik + '\n\nBuat 3 post dari sudut berbeda topik yang sama.\nPagi: momen spesifik, ringan tapi ngena.\nSiang: satu detail kecil yang sangat powerful.\nMalam: paling emosional — cerita dulu panjang, Ghazal masuk di akhir sebagai penemuan.\n\n'
+  : 'Pilih 3 topik BERBEDA. Jangan mirip satu sama lain.\nPagi: momen ringan tapi ngena.\nSiang: lebih berat secara emosional.\nMalam: paling personal — cerita dulu dalam, Ghazal masuk di akhir sebagai penemuan.\n\n') +
+'Balas HANYA JSON:\n' +
 '{"posts":[{"slot":"pagi","content":"..."},{"slot":"siang","content":"..."},{"slot":"malam","content":"..."}]}';
 
   try {
@@ -313,9 +294,7 @@ function copyPost(bodyId, btnId) {
   var btn = document.getElementById(btnId);
   var text = el.innerText || el.textContent;
   if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
-    navigator.clipboard.writeText(text).then(function() {
-      flashOk(btn);
-    }).catch(function() { fallbackCopy(text, btn); });
+    navigator.clipboard.writeText(text).then(function() { flashOk(btn); }).catch(function() { fallbackCopy(text, btn); });
     return;
   }
   fallbackCopy(text, btn);
