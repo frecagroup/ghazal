@@ -26,6 +26,15 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .btn-save{padding:11px 16px;background:rgba(201,168,76,.12);border:0.5px solid rgba(201,168,76,.3);border-radius:9px;color:var(--gold);font-size:13px;font-family:inherit;cursor:pointer;white-space:nowrap;-webkit-tap-highlight-color:transparent}
 .key-ok{font-size:11px;color:#7ED4A0;margin-top:7px;display:none}
 
+/* TOGGLE GROUPS */
+.toggle-row{display:grid;gap:7px;margin-bottom:0}
+.toggle-row-2{grid-template-columns:1fr 1fr}
+.toggle-row-3{grid-template-columns:1fr 1fr 1fr}
+.toggle-opt{padding:10px 8px;border-radius:9px;border:0.5px solid rgba(201,168,76,.15);background:rgba(0,0,0,.2);color:rgba(250,247,240,.45);font-size:11px;font-family:inherit;cursor:pointer;text-align:center;line-height:1.4;-webkit-tap-highlight-color:transparent;transition:all .15s}
+.toggle-opt.active{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.4);color:var(--gold)}
+.toggle-opt .opt-title{font-weight:600;font-size:12px;display:block;margin-bottom:2px}
+.toggle-opt .opt-desc{font-size:10px;opacity:.65;line-height:1.3}
+
 /* TOPIC */
 .topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
 .topic-btn{padding:9px 10px;background:rgba(0,0,0,.2);border:0.5px solid rgba(201,168,76,.15);border-radius:9px;color:rgba(250,247,240,.55);font-size:12px;font-family:inherit;cursor:pointer;text-align:left;line-height:1.35;-webkit-tap-highlight-color:transparent;transition:all .15s}
@@ -34,14 +43,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 .topik-input{width:100%;background:rgba(0,0,0,.3);border:0.5px solid rgba(201,168,76,.15);border-radius:9px;padding:11px 13px;font-size:14px;color:var(--cream);font-family:inherit;resize:none;outline:none;min-height:60px;line-height:1.6}
 .topik-input::placeholder{color:rgba(250,247,240,.2);font-size:13px}
 .topic-clear{font-size:11px;color:rgba(201,168,76,.4);cursor:pointer;margin-top:6px;display:none}
-
-/* GHAZAL MODE TOGGLE */
-.toggle-label{font-size:10px;color:rgba(201,168,76,.55);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px}
-.toggle-row{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-.toggle-opt{padding:10px 12px;border-radius:9px;border:0.5px solid rgba(201,168,76,.15);background:rgba(0,0,0,.2);color:rgba(250,247,240,.45);font-size:12px;font-family:inherit;cursor:pointer;text-align:center;line-height:1.4;-webkit-tap-highlight-color:transparent;transition:all .15s}
-.toggle-opt.active{background:rgba(201,168,76,.12);border-color:rgba(201,168,76,.4);color:var(--gold)}
-.toggle-opt .opt-title{font-weight:500;font-size:13px;display:block;margin-bottom:2px}
-.toggle-opt .opt-desc{font-size:11px;opacity:.7}
 
 .btn-gen{width:100%;padding:16px;background:linear-gradient(135deg,var(--gold-dark),var(--gold));border:none;border-radius:12px;color:var(--green);font-family:inherit;font-size:15px;font-weight:600;cursor:pointer;margin-bottom:24px;-webkit-tap-highlight-color:transparent}
 .btn-gen:disabled{opacity:.5}
@@ -90,13 +91,31 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
   </div>
 
   <div class="card">
+    <div class="card-label">Sudut pandang tulisan</div>
+    <div class="toggle-row toggle-row-3">
+      <button class="toggle-opt" id="pov-aku" onclick="setOpt('pov','aku')">
+        <span class="opt-title">Aku</span>
+        <span class="opt-desc">Personal · Seperti curhat · Cocok untuk konten kreator</span>
+      </button>
+      <button class="toggle-opt active" id="pov-kamu" onclick="setOpt('pov','kamu')">
+        <span class="opt-title">Kamu</span>
+        <span class="opt-desc">Brand bicara ke audiens · Cocok akun official</span>
+      </button>
+      <button class="toggle-opt" id="pov-netral" onclick="setOpt('pov','netral')">
+        <span class="opt-title">Netral</span>
+        <span class="opt-desc">Campuran · "Ada yang...", "Banyak yang..." </span>
+      </button>
+    </div>
+  </div>
+
+  <div class="card">
     <div class="card-label">Penyebutan Ghazal</div>
-    <div class="toggle-row">
-      <button class="toggle-opt active" id="mode-semua" onclick="setMode('semua')">
+    <div class="toggle-row toggle-row-2">
+      <button class="toggle-opt active" id="mode-semua" onclick="setOpt('mode','semua')">
         <span class="opt-title">Di semua post</span>
         <span class="opt-desc">Pagi subtle · Siang natural · Malam kuat</span>
       </button>
-      <button class="toggle-opt" id="mode-malam" onclick="setMode('malam')">
+      <button class="toggle-opt" id="mode-malam" onclick="setOpt('mode','malam')">
         <span class="opt-title">Hanya di malam</span>
         <span class="opt-desc">Pagi & siang murni cerita · Malam reveal brand</span>
       </button>
@@ -105,7 +124,7 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 
   <div class="card">
     <div class="card-label">Pilih topik hari ini</div>
-    <div class="topic-grid" id="topic-grid">
+    <div class="topic-grid">
       <button class="topic-btn" onclick="pilihTopik(this,'Momen pertama kali melihat Kabah — bukan di foto, bukan di mimpi')">👁 Pertama lihat Kabah</button>
       <button class="topic-btn" onclick="pilihTopik(this,'Perasaan saat tawaf — tubuh digerakkan tapi hati yang nangis')">🕋 Tawaf pertama</button>
       <button class="topic-btn" onclick="pilihTopik(this,'Air zamzam — dingin, beda rasanya, seperti sesuatu yang belum pernah ada sebelumnya')">💧 Minum zamzam</button>
@@ -137,13 +156,22 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;backgrou
 <textarea class="copy-ta" id="copy-ta" readonly></textarea>
 
 <script>
+var opts = { pov: 'kamu', mode: 'semua' };
 var selectedTopic = '';
-var ghazalMode = 'semua'; // 'semua' atau 'malam'
 
-function setMode(mode) {
-  ghazalMode = mode;
-  document.getElementById('mode-semua').classList.toggle('active', mode === 'semua');
-  document.getElementById('mode-malam').classList.toggle('active', mode === 'malam');
+function setOpt(key, val) {
+  opts[key] = val;
+  localStorage.setItem('ghazal_' + key, val);
+  // update UI
+  if (key === 'pov') {
+    ['aku','kamu','netral'].forEach(function(v){
+      document.getElementById('pov-' + v).classList.toggle('active', v === val);
+    });
+  } else {
+    ['semua','malam'].forEach(function(v){
+      document.getElementById('mode-' + v).classList.toggle('active', v === val);
+    });
+  }
 }
 
 function pilihTopik(btn, topik) {
@@ -170,8 +198,10 @@ function clearTopik() {
 window.onload = function() {
   var k = localStorage.getItem('ghazal_key');
   if (k) { document.getElementById('api-key').value = k; document.getElementById('key-ok').style.display = 'block'; }
+  var savedPov = localStorage.getItem('ghazal_pov');
   var savedMode = localStorage.getItem('ghazal_mode');
-  if (savedMode) setMode(savedMode);
+  if (savedPov) setOpt('pov', savedPov);
+  if (savedMode) setOpt('mode', savedMode);
   document.getElementById('topik').addEventListener('input', function() {
     if (this.value.trim()) {
       document.querySelectorAll('.topic-btn').forEach(function(b){ b.classList.remove('active'); });
@@ -199,19 +229,47 @@ function getTopik() {
 }
 
 function normalizeText(s) {
-  // Setiap kalimat (diakhiri titik/tanda baca) turun ke baris baru
-  // Pertama bersihkan double newline
   s = s.replace(/\n{2,}/g, '\n').trim();
-  // Pastikan setelah titik/tanda tanya/seru langsung newline
-  s = s.replace(/([.!?])\s+(?=[A-Z\u00C0-\u024F\u1E00-\u1EFF"'(])/g, '$1\n');
   return s;
+}
+
+function buildPovInstruction(pov) {
+  if (pov === 'aku') return (
+    'SUDUT PANDANG: orang pertama ("aku").\n' +
+    'Tulis seperti seseorang yang sedang bercerita pengalaman pribadinya.\n' +
+    'Contoh: "Aku nangis di Multazam. Bukan nangis sedih. Tapi nangis lega."\n'
+  );
+  if (pov === 'kamu') return (
+    'SUDUT PANDANG: orang kedua ("kamu").\n' +
+    'Brand berbicara langsung kepada pembaca — mengajak mereka masuk ke momen itu.\n' +
+    'Contoh: "Kamu pernah nangis di Multazam? Bukan nangis sedih. Tapi nangis lega — seperti napas yang udah ditahan lama akhirnya keluar."\n' +
+    'Bikin pembaca merasa dikenal dan dipahami.\n'
+  );
+  return (
+    'SUDUT PANDANG: netral/universal.\n' +
+    'Gunakan "ada yang...", "banyak yang...", "orang yang pernah ke sana tahu..." atau kalimat tanpa subjek.\n' +
+    'Contoh: "Ada yang nangis di Multazam bukan karena sedih. Tapi karena akhirnya sampai."\n' +
+    'Terasa seperti brand mengakui pengalaman audiens tanpa mengklaimnya.\n'
+  );
+}
+
+function buildModeInstruction(mode) {
+  if (mode === 'semua') return (
+    'PENYEBUTAN GHAZAL: wajib di ketiga post dengan intensitas berbeda.\n' +
+    'Pagi: satu kalimat pendek di akhir, sangat subtle. Contoh: "Sekarang, Ghazal yang jagain rindu itu."\n' +
+    'Siang: natural di akhir setelah cerita selesai. Contoh: "Di rumah, yang paling deket sama perasaan itu adalah Ghazal."\n' +
+    'Malam: paling dalam — cerita dulu, Ghazal masuk sebagai penemuan. Contoh: "Sampai aku pulang dan nemuin Ghazal. Tiap cium wanginya, momen itu muncul lagi."\n'
+  );
+  return (
+    'PENYEBUTAN GHAZAL: JANGAN sebut Ghazal di post pagi dan siang sama sekali. Murni cerita.\n' +
+    'Hanya post malam yang sebut Ghazal — setelah cerita dibangun panjang, Ghazal masuk sebagai penemuan pribadi.\n' +
+    'Contoh malam: "Sampai aku pulang dan nemuin Ghazal. Dan tiba-tiba aku ada di sana lagi."\n'
+  );
 }
 
 async function generate() {
   var key = getKey();
   if (!key) { showErr('Masukkan Claude API Key dulu.'); return; }
-
-  localStorage.setItem('ghazal_mode', ghazalMode);
 
   var topik = getTopik();
   var btn = document.getElementById('gen-btn');
@@ -223,44 +281,30 @@ async function generate() {
   output.innerHTML = '';
   hideErr();
 
-  // Build mode-specific instruction
-  var modeInstruction = ghazalMode === 'semua'
-    ? 'PENYEBUTAN GHAZAL:\n' +
-      'Ghazal WAJIB disebut di ketiga post tapi dengan intensitas berbeda.\n' +
-      'Pagi: satu kalimat pendek di akhir, sangat subtle. Contoh: "Sekarang, Ghazal yang jagain rindu itu."\n' +
-      'Siang: natural di akhir setelah cerita selesai. Contoh: "Di rumah, yang paling deket sama perasaan itu adalah Ghazal."\n' +
-      'Malam: paling dalam — cerita dulu panjang, Ghazal masuk sebagai penemuan. Contoh: "Setelah pulang, aku nemuin Ghazal. Tiap cium wanginya, momen itu muncul lagi."\n'
-    : 'PENYEBUTAN GHAZAL:\n' +
-      'Post pagi dan siang: JANGAN sebut Ghazal sama sekali. Murni cerita, murni emosi.\n' +
-      'Post malam SAJA yang sebut Ghazal — tapi dengan sangat dalam, setelah cerita dibangun panjang.\n' +
-      'Ghazal masuk sebagai penemuan pribadi, bukan kesimpulan. Contoh: "Sampai aku pulang dan nemuin Ghazal. Dan tiba-tiba aku ada di sana lagi."\n';
-
   var prompt =
 'Kamu content writer untuk wewangian Ghazal di Threads.\n\n' +
 'GHAZAL: obat rindu untuk yang sudah pulang dari tanah suci tapi hatinya masih di sana. Bukan parfum untuk dibawa umroh.\n\n' +
-modeInstruction + '\n' +
-'ATURAN GHAZAL — WAJIB:\n' +
-'Ghazal harus muncul SETELAH cerita selesai dibangun — bukan di tengah, bukan tiba-tiba.\n' +
-'Selalu ada jembatan konteks sebelum sebut Ghazal.\n' +
+buildPovInstruction(opts.pov) + '\n' +
+buildModeInstruction(opts.mode) + '\n' +
+'ATURAN GHAZAL:\n' +
+'Ghazal muncul SETELAH cerita selesai — selalu ada jembatan konteks sebelumnya.\n' +
 'Variasi: kadang "wewangian Ghazal", kadang cukup "Ghazal" saja.\n' +
-'JANGAN: "Wewangian Ghazal bawa balik..." (tiba-tiba, tanpa jembatan)\n\n' +
-'FORMAT WAJIB — INI YANG PALING PENTING:\n' +
-'Setiap kalimat harus di baris BARU. Bukan paragraf. Setiap titik = ganti baris.\n' +
-'Contoh BENAR:\n' +
+'JANGAN sebut Ghazal tiba-tiba tanpa konteks.\n\n' +
+'FORMAT — INI WAJIB:\n' +
+'Setiap kalimat di baris BARU. Setiap titik/tanda baca = ganti baris.\n' +
+'BENAR:\n' +
 '"Ada satu detail yang bikin aku inget Kabah sampai sekarang.\n' +
 'Cahaya matahari yang jatuh ke permata di puncaknya.\n' +
 'Bukan kilau biasa.\n' +
-'Tapi seperti Allah yang ngomong "aku di sini."\n' +
-'Cuma sesaat.\n' +
-'Tapi itu cukup."\n\n' +
-'Contoh SALAH (jangan jadi satu paragraf):\n' +
-'"Ada satu detail yang bikin aku inget Kabah sampai sekarang — cahaya matahari yang jatuh ke permata di puncaknya. Bukan kilau, tapi seperti Allah yang ngomong aku di sini."\n\n' +
-'DIKSI: sensoris, spesifik, visceral. Bukan "indah" tapi "bikin dada sesak". Bukan "berkesan" tapi "nggak bisa dilupain".\n' +
-'Pakai "Allah" bukan "Tuhan". Mix natural dan sedikit puitis. Maks 1 emoji. Maks 2 hashtag.\n\n' +
+'Tapi seperti Allah yang ngomong \'aku di sini.\'"\n\n' +
+'SALAH (jangan jadi satu paragraf):\n' +
+'"Ada satu detail yang bikin aku inget Kabah — cahaya matahari yang jatuh ke permata di puncaknya, bukan kilau biasa."\n\n' +
+'DIKSI: sensoris, spesifik, visceral. Bukan "indah" tapi "bikin dada sesak". Pakai "Allah" bukan "Tuhan".\n' +
+'Mix natural dan sedikit puitis. Maks 1 emoji. Maks 2 hashtag.\n\n' +
 (topik
   ? 'TOPIK: ' + topik + '\nBuat 3 post dari sudut berbeda topik yang sama.\n'
   : 'Pilih 3 topik BERBEDA — jangan mirip satu sama lain.\n') +
-'Pagi: momen spesifik dan ringan tapi ngena.\n' +
+'Pagi: momen spesifik, ringan tapi ngena.\n' +
 'Siang: satu detail kecil yang sangat powerful.\n' +
 'Malam: paling emosional dan personal.\n\n' +
 'Balas HANYA JSON:\n' +
